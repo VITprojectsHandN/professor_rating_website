@@ -73,14 +73,18 @@ WSGI_APPLICATION = 'vit_website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-import dj_database_url
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env
+
+import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
-    )
+    'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 }
+
+
 
 
 
