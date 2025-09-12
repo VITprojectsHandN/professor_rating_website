@@ -78,9 +78,10 @@ import os
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:2VKUZnFoAkCKvA3t@db.ppedqlfxxwopixxebydk.supabase.co:5432/postgres'
+        default=os.environ.get("DATABASE_URL")
     )
 }
+
 
 
 
