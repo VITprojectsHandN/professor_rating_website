@@ -1,23 +1,16 @@
 from django.db import models
-
+import uuid
 
 class Professor(models.Model):
-    id = models.UUIDField(primary_key=True)  # matches Supabase uuid
-    name = models.CharField(max_length=255, unique=True)
-
-    class Meta:
-        db_table = "teachers"  # use Supabase "teachers" table
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)  # duplicates allowed
 
     def __str__(self):
         return self.name
 
 
 class Rating(models.Model):
-    professor = models.ForeignKey(
-        Professor,
-        on_delete=models.CASCADE,
-        db_column="professor_id"  # must match Supabase column
-    )
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, db_column="professor_id")
     teaching = models.PositiveSmallIntegerField()
     evaluation = models.PositiveSmallIntegerField()
     behaviour = models.PositiveSmallIntegerField()
@@ -25,8 +18,4 @@ class Rating(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = "reviews"  # use Supabase "reviews" table
-
-
-
-    
+        db_table = "reviews"  # points to Supabase reviews table
