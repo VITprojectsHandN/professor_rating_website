@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 
 class Professor(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)  # duplicates allowed
 
     def __str__(self):
