@@ -8,6 +8,10 @@ class Professor(models.Model):
     class Meta:
         db_table = "professors"  # must match Supabase table name
 
+    def save(self, *args, **kwargs):
+        self.name = self.name.title()  # Ensure name is always Title Case
+        super().save(*args, **kwargs)
+
 
 class Rating(models.Model):
     professor = models.ForeignKey(

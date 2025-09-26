@@ -218,6 +218,11 @@
     </div>
 
     <script>
+        function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function(txt){
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+}
         const searchInput = document.getElementById("searchInput");
         const searchResults = document.getElementById("searchResults");
         const professorDropdown = document.getElementById("professorDropdown");
@@ -246,7 +251,7 @@
                     data.professors.forEach(professor => {
                         const option = document.createElement('option');
                         option.value = professor;
-                        option.textContent = professor;
+                        option.textContent = toTitelCase(professor);
                         professorDropdown.appendChild(option);
                     });
                 } else {
@@ -326,7 +331,7 @@
                         data.suggestions.forEach(suggestion => {
                             const div = document.createElement('div');
                             div.className = 'py-2 px-3 hover:bg-blue-100 cursor-pointer border-b border-gray-200';
-                            div.textContent = suggestion;
+                            div.textContent = toTitleCase(suggestion);
                             div.addEventListener('click', () => {
                                 selectProfessor(suggestion);
                                 professorDropdown.value = suggestion; // Sync dropdown
@@ -360,7 +365,7 @@
                 
                 if (response.ok) {
                     // Display professor data
-                    document.getElementById("professorName").textContent = data.name;
+                    document.getElementById("professorName").textContent = toTitleCase(data.name);
                     document.getElementById("totalRatings").textContent = data.total_ratings;
                     document.getElementById("overallRating").textContent = data.ratings.overall;
                     
