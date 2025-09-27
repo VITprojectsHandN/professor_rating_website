@@ -417,8 +417,14 @@
     let selectedName = null;
     let searchTimeout = null;
 
+    function capitalizeWords(str) {
+        return str.replace(/\b\w/g, char => char.toUpperCase());
+    }
+
     // Auto-suggestion functionality
     searchInput.addEventListener("input", () => {    
+        const capitalizedQuery = capitalizeWords(searchInput.value);
+        searchInput.value = capitalizedQuery;
         const query = searchInput.value.trim();
         
         // Clear previous timeout 
@@ -725,4 +731,3 @@
 
 </body>
 </html>
-

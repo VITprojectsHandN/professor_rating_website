@@ -228,6 +228,10 @@
         
         let searchTimeout = null;
 
+        function capitalizeWords(str) {
+            return str.replace(/\b\w/g, char => char.toUpperCase());
+        }
+
         // Load all professors for dropdown on page load
         async function loadAllProfessors() {
             try {
@@ -296,6 +300,8 @@
 
         // Auto-suggestion functionality
         searchInput.addEventListener("input", () => {
+            const capitalizedQuery = capitalizeWords(searchInput.value);
+            searchInput.value = capitalizedQuery;
             const query = searchInput.value.trim();
             
             // Clear dropdown selection when typing in search
