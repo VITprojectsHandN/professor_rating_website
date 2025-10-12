@@ -6,6 +6,40 @@
     <title>Reviews</title> 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
+
+        /* Suggestion Level Styles */
+#suggestionLevel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+  margin: 15px auto;
+  width: 100%;
+}
+
+#suggestionLevel span {
+  padding: 8px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Keep your color styles as they are */
+.suggestion-high {
+  background-color: #dcfce7; /* light green */
+  color: #166534; /* dark green */
+}
+
+.suggestion-medium {
+  background-color: #fef9c3; /* light yellow */
+  color: #854d0e; /* brownish-yellow */
+}
+
+.suggestion-low {
+  background-color: #fee2e2; /* light red */
+  color: #991b1b; /* dark red */
+}
+
         * {
             scroll-behavior: smooth;
         }
@@ -171,7 +205,10 @@
                         <div class="text-sm text-gray-600">Overall Rating</div>
                     </div>
                 </div>
-                
+
+                <div id="suggestionLevel" class="hidden">
+                    <span></span>
+                </div>
                 <!-- Rating boxes grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                     <div class="space-y-3">
@@ -369,7 +406,24 @@
                     document.getElementById("professorName").textContent = data.name;
                     document.getElementById("totalRatings").textContent = data.total_ratings;
                     document.getElementById("overallRating").textContent = data.ratings.overall;
-                    
+                    // --- Suggestion Level Display ---
+                    const suggestionElement = document.getElementById("suggestionLevel");
+                    const rating = parseFloat(data.ratings.overall);
+                    suggestionElement.className = "text-center mt-3 font-semibold text-base"; // reset classes
+
+if (rating >= 4.0) {
+  suggestionElement.textContent = "Highly Suggested";
+  suggestionElement.classList.add("suggestion-high");
+} else if (rating >= 3.0) {
+  suggestionElement.textContent = "Moderately Suggested";
+  suggestionElement.classList.add("suggestion-medium");
+} else {
+  suggestionElement.textContent = "Least Suggested";
+  suggestionElement.classList.add("suggestion-low");
+}
+
+suggestionElement.classList.remove("hidden");
+
                     // Display individual ratings
                     document.getElementById("teachingRating").textContent = data.ratings.teaching;
                     document.getElementById("evaluationRating").textContent = data.ratings.evaluation;
